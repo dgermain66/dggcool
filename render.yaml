@@ -1,0 +1,23 @@
+# Render Blueprint for DGGCOOL
+# This file lets Render auto-configure your deployment.
+# Just connect your GitHub repo at render.com and it'll detect this config.
+
+services:
+  - type: web
+    name: dggcool
+    runtime: node
+    plan: free
+    region: oregon
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    healthCheckPath: /api/health
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: NODE_OPTIONS
+        value: --max-old-space-size=512
+      # Add your Z.AI API key here (or set it in Render dashboard):
+      # - key: ZAI_API_KEY
+      #   value: your_key_here
+      # Get a free key at https://chat.z.ai → Settings → API Keys
